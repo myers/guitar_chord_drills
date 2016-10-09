@@ -2,6 +2,7 @@
 
 This project aspires to make it easy to learn chord changes on the Guitar.  The end product would be a website where a student would connect their guitar to the computer, (to be added) tune their guitar, then get their drill goals for the day.
 
-The first drill I'm trying to develop is inspired by [Justin Guitar's 1 Minute Changes] drill, where for example you'll switch between E and D for 1 minute.  The site will use a [chord detection] library to judge if the correct cord has been played, and keep count of the time and the number of changes made in the time limit.
+The first drill I'm trying to develop is inspired by [Justin Guitar's 1 Minute Changes] drill, where for example you'll switch between E and D for 1 minute.  The site will use a [chord detection] library to judge if the correct cord has been played, and keep count of the time and the number of changes made in the time limit.  The website will record the student's performace and stop drilling on the same chord changes once they reach a good average.
 
  [Justin Guitar's 1 Minute Changes]: http://www.justinguitar.com/en/BC-115-1MinuteChanges.php
+ [chord detection]: https://github.com/myers/chord_detector/

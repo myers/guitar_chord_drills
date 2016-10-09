@@ -1,0 +1,3 @@
+[submodule "vendor/jtab"]
+	path = vendor/jtab
+	url = https://github.com/tardate/jtab.git
