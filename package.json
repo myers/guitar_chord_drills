@@ -1,0 +1,25 @@
+{
+  "name": "guitar_chord_drills",
+  "version": "1.0.0",
+  "description": "Build mastery of guitar chord changes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myers/guitar_chord_drills.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/myers/guitar_chord_drills/issues"
+  },
+  "homepage": "https://github.com/myers/guitar_chord_drills#readme",
+  "dependencies": {
+    "chord_detector": "^1.0.1"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.2"
+  }
+}
