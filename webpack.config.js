@@ -10,5 +10,6 @@ module.exports = {
       { test: /\.css$/, loader: "style!css" },
       { test : /\.jsx?/, loader: "babel" }
     ]
-  }
-};
+  },
+  devtool: "#inline-source-map"
+}
