@@ -6,26 +6,25 @@ export default class ChordPane extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return false;
+    console.log("shouldComponentUpdate", nextProps, nextState)
+    return false
   }
 
   componentDidMount() {
-    this.paper = new Raphael(document.getElementById("chord-pane"))
-
-    const chord = new ChordBox(this.paper, 0, 0, 200, 200);
-    const chord_struct = {"name":"D Major","chord":[[1,2],[2,3],[3,2],[4,0],[5,"x"],[6,"x"]],"position":0,"bars":[]};
-    chord.setChord(
-      chord_struct.chord,
-      chord_struct.position,
-      chord_struct.bars,
-      chord_struct.position_text
-    )
-    chord.draw()
+    jtab.render($('#chord-pane'), this.props.chord);
+    // work around missing viewbox that would allow us to scale this up
+    var svg = $('#chord-pane svg').get(0)
+    svg.setAttribute('viewBox', '0 0 138 118')
+    svg.setAttribute('height', '100%')
+    svg.removeAttribute('style')
+    svg.removeAttribute('width')
+    $('#chord-pane div').css('height', '500px')
   }
 
   render() {
+    var style = {"paddingBottom": "67%"}
     return (
-      <div id="chord-pane"></div>
+      <div id="chord-pane" className="chord-container" style={style}></div>
     )
   }
 }

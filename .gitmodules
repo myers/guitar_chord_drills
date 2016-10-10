@@ -1,6 +1,3 @@
 [submodule "vendor/jtab"]
 	path = vendor/jtab
 	url = https://github.com/tardate/jtab.git
-[submodule "vendor/vexchords"]
-	path = vendor/vexchords
-	url = https://github.com/0xfe/vexchords.git

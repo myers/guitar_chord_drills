@@ -1,3 +1,16 @@
-body {
-    background: yellow;
+/* Example-specific styles */
+.chord-container {
+  position: relative;
+  height:0;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 100%;
+  /* over-ride this inline for aspect ratio other than square */
+}
+.chord-svg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top:0;
 }
