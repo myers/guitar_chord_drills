@@ -6,14 +6,13 @@ export default class ChordPane extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("shouldComponentUpdate", nextProps, nextState)
     this.renderChord(nextProps.chord)
     return false
   }
 
   renderChord(chord) {
     jtab.render($('#chord-pane'), chord);
-    // work around missing viewbox that would allow us to scale this up
+    // add missing viewbox that will allow us to scale this up
     var svg = $('#chord-pane svg').get(0)
     svg.setAttribute('viewBox', '0 0 138 118')
     svg.setAttribute('height', '100%')
