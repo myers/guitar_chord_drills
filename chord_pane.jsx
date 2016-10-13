@@ -26,7 +26,7 @@ export default class ChordPane extends React.Component {
   }
 
   render() {
-    var style = {"paddingBottom": "67%"}
+    var style = {"height": "100vh"}
     return (
       <div id="chord-pane" className="chord-container" style={style}></div>
     )
