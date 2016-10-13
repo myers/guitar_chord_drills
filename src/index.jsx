@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
-import ChordPane from './chord_pane.jsx'
-require('./style.css')
+import ChordPane from './components/ChordPane.jsx'
+require('./css/style.css')
 
 class App extends React.Component {
   constructor(props) {
@@ -21,4 +21,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'))
+render(<App/>, document.getElementById('root'))

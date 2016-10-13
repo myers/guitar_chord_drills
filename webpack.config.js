@@ -1,15 +1,21 @@
-path = require("path")
-
 module.exports = {
-  entry: "./index.jsx",
+  entry: './src/index.jsx',
+
   output: {
-    filename: "bundle.js"
+    filename: 'bundle.js'
   },
+
   module: {
     loaders: [
-      { test: /\.css$/, loader: "style!css" },
-      { test : /\.jsx?/, loader: "babel" }
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        loaders: ['babel-loader']
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      }
     ]
-  },
-  devtool: "#inline-source-map"
-}
+  }
+};
