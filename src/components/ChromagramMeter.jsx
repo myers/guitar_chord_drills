@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { Panel } from 'react-bootstrap'
 
 export default class ChromagramMeter extends React.Component {
   constructor(props) {
@@ -7,7 +8,9 @@ export default class ChromagramMeter extends React.Component {
 
   render() {
     return (
-      <div></div>
+      <Panel header="Chormagram">
+        {"Doesn't work yet"}
+      </Panel>
     )
   }
 }

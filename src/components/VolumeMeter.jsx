@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
 
+import { Panel } from 'react-bootstrap'
+
 export default class VolumeMeter extends React.Component {
   constructor(props) {
     super(props)
@@ -7,7 +9,9 @@ export default class VolumeMeter extends React.Component {
 
   render() {
     return (
-      <div></div>
+      <Panel header="Volume">
+        {"Doesn't work yet"}
+      </Panel>
     )
   }
 }
