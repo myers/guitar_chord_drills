@@ -6,6 +6,7 @@ import VolumeMeter from './components/VolumeMeter.jsx'
 import ChromagramMeter from './components/ChromagramMeter.jsx'
 import DrillTimer from './components/DrillTimer.jsx'
 import AudioContainer from './components/AudioContainer.jsx'
+import ChordFaker from './components/ChordFaker.jsx'
 
 require('./css/style.css')
 
@@ -15,7 +16,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentChord: "G"
+      currentChord: "A"
     }
   }
 
@@ -49,6 +50,7 @@ class App extends React.Component {
                   <Col>
                     <VolumeMeter />
                     <ChromagramMeter />
+                    <ChordFaker />
                   </Col>
                 </Row>
               </Col>

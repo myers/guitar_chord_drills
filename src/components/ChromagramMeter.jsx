@@ -18,7 +18,7 @@ export default class ChromagramMeter extends React.Component {
 
   renderMeter() {
     //requestAnimationFrame(() => renderMeter())
-    console.log(this.visualizationDiv)
+    //console.log(this.visualizationDiv)
     // for (let i = 0; i < this.props.currentChroma.length; i++) {
     //   const value = currentChroma[i]
     // }
@@ -35,7 +35,7 @@ export default class ChromagramMeter extends React.Component {
       <Panel header="Chromagram">
         <div className="chromagram" ref={(c) => { this.visualizationDiv = c; }}>
           { this.notes.map((note) => {
-            return <div className={ `note-${note.toLowerCase().replace('#', '-sharp')}`}><span>{note}</span></div>
+            return <div key={note} className={ `note-${note.toLowerCase().replace('#', '-sharp')}`}><span>{note}</span></div>
           })}
         </div>
       </Panel>

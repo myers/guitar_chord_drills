@@ -1,16 +1,26 @@
 import React, { PropTypes } from 'react'
 
 export default class AudioContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { audioContext: null, audioDestination: null }
+  }
+
   getChildContext() {
+    console.log('getChildContext')
+
     return {
-      audioContext: this.audioContext,
-      audioSource: this.audioSource
+      audioContext: this.state.audioContext,
+      audioDestination: this.state.audioDestination
     }
   }
 
   componentDidMount() {
-    this.audioContext = new AudioContext()
-    this.audioSource = null
+    console.log('componentDidMount')
+    this.setState({
+      ...this.state,
+      audioContext: new AudioContext()
+    })
 
     // navigator.mediaDevices.getUserMedia({audio: true, video: false})
     //   .then((mediaStream) => {
@@ -32,5 +42,5 @@ export default class AudioContainer extends React.Component {
 
 AudioContainer.childContextTypes = {
   audioContext: React.PropTypes.object,
-  audioSource: React.PropTypes.object
+  audioDestination: React.PropTypes.object
 }
