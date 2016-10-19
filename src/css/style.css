@@ -1,21 +1,37 @@
-/* Example-specific styles */
 .chord-container {
-  position: relative;
-  height:0;
-  width: 100%;
-  padding: 0;
-  padding-bottom: 100%;
-  /* over-ride this inline for aspect ratio other than square */
-}
-.chord-svg {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top:0;
+  color: black;
+  height: calc(100vh - 140px);
 }
 
-.scoreboard .score {
-  font-size: 3vh;
+.scoreboard .panel-body {
+  font-size: 5em;
   text-align: center;
 }
+
+.timer .panel-body {
+  font-size: 4em;
+  text-align: center;
+}
+
+.chromagram div {
+  background: linear-gradient(red, yellow, green);
+  font-size: 10px;
+  float: left;
+  width: 7%;
+  height: 100px;
+  color: white;
+  /* border: 1px solid red; */
+  position: relative;
+  margin-right: 1px;
+  /*  */
+
+}
+
+.chromagram div span {
+  width: 100%;
+  position:absolute;
+  bottom: 0;
+  text-align: center;
+/*  left:50%;
+  margin-left:-50%;
+*/}

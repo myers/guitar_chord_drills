@@ -9,7 +9,7 @@ export default class DrillTimer extends React.Component {
 
   render() {
     return (
-      <Panel header="Time Left">
+      <Panel className="timer" header="Time Left">
         {this.props.timeLeft}
       </Panel>
     )
