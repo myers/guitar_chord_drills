@@ -8,16 +8,24 @@ export default class ChordFaker extends React.Component {
       a: new Audio("docs/A-Chord.ogg"),
       e: new Audio("docs/E-Chord.ogg")
     }
+
+    this.chordNodes = {}
   }
 
   playChord(chordName) {
     return () => {
-      console.log(this.context)
       Object.keys(this.chords).forEach((key) => {
         this.chords[key].pause()
         this.chords[key].currentTime = 0
       })
-      this.chords[chordName].play()
+
+      let audioEl = this.chords[chordName]
+      audioEl.play()
+
+      if (!this.chordNodes.hasOwnProperty(chordName)) {
+        this.chordNodes[chordName] = this.context.audioContext.createMediaElementSource(audioEl)
+        this.chordNodes[chordName].connect(this.context.audioDestination[0])
+      }
     }
   }
 
@@ -31,9 +39,8 @@ export default class ChordFaker extends React.Component {
   }
 }
 
-
 ChordFaker.contextTypes = {
   audioContext: React.PropTypes.object,
-  audioDestination: React.PropTypes.object
+  audioDestination: React.PropTypes.array
 }
 
