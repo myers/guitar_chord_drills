@@ -48,8 +48,9 @@ class App extends React.Component {
               <Col md={2}>
                 <Row>
                   <Col>
-                    <ChromagramMeter />
                     <ChordFaker />
+                    <ChromagramMeter />
+                    <VolumeMeter />
                   </Col>
                 </Row>
               </Col>

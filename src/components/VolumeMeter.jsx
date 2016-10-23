@@ -6,21 +6,30 @@ import { Panel } from 'react-bootstrap'
 export default class VolumeMeter extends React.Component {
   constructor(props) {
     super(props)
+    this.rafId = null
   }
 
   componentDidMount() {
     this.processor = this.createVolumeProcessor()
+    this.renderMeter()
+  }
+
+  componentWillUnmount() {
+    if(this.rafId) {
+      cancelAnimationFrame(this.rafId)
+      this.rafId = null
+    }
   }
 
   createVolumeProcessor(clipLevel, averaging, clipLag) {
     let processor = this.context.audioContext.createScriptProcessor(512)
     processor.onaudioprocess = (event) => this.volumeAudioProcess(event)
-    processor.clipping = false
-    processor.lastClip = 0
-    processor.volume = 0
-    processor.clipLevel = clipLevel || 0.98
-    processor.averaging = averaging || 0.95
-    processor.clipLag = clipLag || 750
+    this.clipping = false
+    this.lastClip = 0
+    this.volume = 0
+    this.clipLevel = clipLevel || 0.98
+    this.averaging = averaging || 0.95
+    this.clipLag = clipLag || 750
 
     processor.connect(this.context.audioDestination[0])
     this.context.audioDestination[0] = processor
@@ -44,18 +53,18 @@ export default class VolumeMeter extends React.Component {
   }
 
   volumeAudioProcess(event) {
-
     let inputBuffer = event.inputBuffer;
     let outputBuffer = event.outputBuffer;
+
     // Loop through the output channels (in this case there is only one)
     for (let channel = 0; channel < outputBuffer.numberOfChannels; channel++) {
       outputBuffer.copyToChannel(inputBuffer.getChannelData(channel), channel)
     }
 
-    let buf = inputBuffer.getChannelData(0)
-    let bufLength = buf.length
-    let sum = 0
-    let x
+    var buf = inputBuffer.getChannelData(0)
+    var bufLength = buf.length
+    var sum = 0
+    var x
 
     // Do a root-mean-square on the samples: sum up the squares...
     for (let ii = 0; ii < bufLength; ii++) {
@@ -74,14 +83,23 @@ export default class VolumeMeter extends React.Component {
     // to the previous sample - take the max here because we
     // want "fast attack, slow release."
     this.volume = Math.max(rms, this.volume * this.averaging)
-    console.log("volumeAudioProcess", this.volume)
+  }
 
+  renderMeter() {
+    this.rafId = requestAnimationFrame(() => this.renderMeter())
+
+    let size = (this.volume * 500 * 1.4) / 5
+    this.visualizationDiv.style.height = `${100 - size}%`
   }
 
   render() {
     return (
       <Panel header="Volume">
-        <div ref={(c) => { this.visualizationDiv = c }}/>
+        <div className="volume-meter">
+          <div className="outer">
+            <div className="inner" ref={(c) => { this.visualizationDiv = c }}/>
+          </div>
+        </div>
       </Panel>
     )
   }

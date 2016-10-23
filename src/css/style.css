@@ -13,6 +13,23 @@
   text-align: center;
 }
 
+.volume-meter {
+  height: 100px;
+}
+
+.volume-meter .outer {
+  background: linear-gradient(red, yellow, green);
+  width: 7%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.volume-meter .inner {
+  background: white;
+  width: 100%;
+  height: 100%;
+}
+
 .chromagram div {
   background: linear-gradient(red, yellow, green);
   font-size: 10px;
