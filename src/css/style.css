@@ -30,25 +30,29 @@
   height: 100%;
 }
 
-.chromagram div {
-  background: linear-gradient(red, yellow, green);
-  font-size: 10px;
-  float: left;
-  width: 7%;
+.chromagram {
   height: 100px;
-  color: white;
-  /* border: 1px solid red; */
-  position: relative;
-  margin-right: 1px;
-  /*  */
-
 }
 
-.chromagram div span {
+.chromagram .outer {
+  background: linear-gradient(red, yellow, green);
+  float: left;
+  width: 7%;
+  height: 100%;
+  position: relative;
+  margin-right: 1px;
+}
+
+.chromagram .inner {
+  background: white;
+  height: 100%;
+}
+
+.chromagram .c-label {
+  color: white;
+  font-size: 10px;
   width: 100%;
-  position:absolute;
+  position: absolute;
   bottom: 0;
   text-align: center;
-/*  left:50%;
-  margin-left:-50%;
-*/}
+}

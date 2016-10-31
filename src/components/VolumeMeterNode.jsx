@@ -1,3 +1,6 @@
+// don't bother to output anything, will be connected in parallel to
+// other path to the speakers.  This will avoid pop and glitches in the
+// audio that we would hear if we put this in the audio path.
 export default class VolumeMeterNode {
   constructor(audioContext, clipLevel = 0.98, averaging = 0.95, clipLag = 750) {
     this.audioContext = audioContext
@@ -8,17 +11,6 @@ export default class VolumeMeterNode {
     this.clipping = false
     this.lastClip = 0
     this.volume = 0
-
-    this.processor = audioContext.createScriptProcessor(512)
-    this.processor.onaudioprocess = (event) => this.volumeAudioProcess(event)
-  }
-
-  connect(node) {
-    this.processor.connect(node)
-  }
-
-  disconnect() {
-    this.processor.disconnect()
   }
 
   checkClipping() {
@@ -30,14 +22,8 @@ export default class VolumeMeterNode {
     return this.clipping
   }
 
-  volumeAudioProcess(event) {
-    let inputBuffer = event.inputBuffer;
-    let outputBuffer = event.outputBuffer;
-
-    // Loop through the output channels (in this case there is only one)
-    for (let channel = 0; channel < outputBuffer.numberOfChannels; channel++) {
-      outputBuffer.copyToChannel(inputBuffer.getChannelData(channel), channel)
-    }
+  onAudioProcess(event) {
+    let inputBuffer = event.inputBuffer
 
     var buf = inputBuffer.getChannelData(0)
     var bufLength = buf.length

@@ -5,7 +5,11 @@ module.exports = {
     filename: 'bundle.js'
   },
 
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
+
+  node: {
+    fs: "empty"
+  },
 
   module: {
     loaders: [

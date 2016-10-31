@@ -854,9 +854,9 @@ chokidar@^1.0.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-chord_detector@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/chord_detector/-/chord_detector-1.0.4.tgz#7598b0632d2a221c794dee700e93ecca53ee7694"
+chord_detector:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/chord_detector/-/chord_detector-1.0.5.tgz#c4af7a0823b5534791f903ef03411668dc5a8372"
 
 clap@^1.0.9:
   version "1.1.1"
@@ -3344,6 +3344,12 @@ wordwrap@~0.0.2:
 wordwrap@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.2.tgz#b79669bb42ecb409f83d583cad52ca17eaa1643f"
+
+worker-loader:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/worker-loader/-/worker-loader-0.7.1.tgz#91ffd2e2fbf76921a43e8ca3766d12e9537f5d70"
+  dependencies:
+    loader-utils "0.2.x"
 
 wrappy@1:
   version "1.0.2"

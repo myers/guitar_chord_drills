@@ -1,19 +1,48 @@
 import React, { PropTypes } from 'react'
 
+import VolumeMeterNode from './VolumeMeterNode.jsx'
+
 export default class AudioContainer extends React.Component {
   constructor(props) {
     super(props)
-    let audioContext = new AudioContext()
-    this.state = {
-      audioContext,
-      audioDestination: [audioContext.destination]
+
+    this.monitorNodes = []
+    this.sourceElements = {}
+    this.audioContext = new AudioContext()
+
+    this.currentSource = null
+  }
+
+  addMonitor(samples, func) {
+    let node = this.audioContext.createScriptProcessor(samples)
+    node.onaudioprocess = func
+
+    node.connect(this.audioContext.destination)
+    this.monitorNodes.push(node)
+  }
+
+  addSourceElement(el) {
+    let src = el.getAttribute('src')
+    if (!this.sourceElements.hasOwnProperty(src)) {
+      this.sourceElements[src] = this.audioContext.createMediaElementSource(el)
+      el.addEventListener('play', (event) => this.onPlay(this.sourceElements[src]))
     }
+  }
+
+  onPlay(sourceNode) {
+    if (this.currentSource) {
+      this.currentSource.disconnect()
+    }
+    this.currentSource = sourceNode
+    for (let node of this.monitorNodes) {
+      sourceNode.connect(node)
+    }
+    sourceNode.connect(this.audioContext.destination)
   }
 
   getChildContext() {
     return {
-      audioContext: this.state.audioContext,
-      audioDestination: this.state.audioDestination
+      audioContainer: this
     }
   }
 
@@ -38,6 +67,5 @@ export default class AudioContainer extends React.Component {
 }
 
 AudioContainer.childContextTypes = {
-  audioContext: React.PropTypes.object,
-  audioDestination: React.PropTypes.array
+  audioContainer: React.PropTypes.object
 }

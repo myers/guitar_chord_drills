@@ -1,11 +1,17 @@
 import React, { PropTypes } from 'react'
 import { Panel } from 'react-bootstrap'
 
+import ChromagramWorker from 'worker!../ChromagramWorker.jsx'
+
 export default class ChromagramMeter extends React.Component {
   constructor(props) {
     super(props)
 
     this.notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+
+    this.currentChroma = new Float32Array(12)
+    this.chromagramWorker = null
+    this.rafId = null
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -13,29 +19,50 @@ export default class ChromagramMeter extends React.Component {
   }
 
   componentDidMount() {
+    this.chromagramWorker = new ChromagramWorker()
+    this.chromagramWorker.addEventListener("message", (event) => {
+      this.currentChroma = event.data.currentChroma
+    })
+    this.context.audioContainer.addMonitor(1024, (event) => {
+      this.chromagramWorker.postMessage({
+        audioData: event.inputBuffer.getChannelData(0)
+      })
+    })
     this.renderMeter()
   }
 
-  renderMeter() {
-    //requestAnimationFrame(() => renderMeter())
-    //console.log(this.visualizationDiv)
-    // for (let i = 0; i < this.props.currentChroma.length; i++) {
-    //   const value = currentChroma[i]
-    // }
-    //   visualizationCtx.fillStyle = gradient;
-    //   // the max value we've seen in a chroma is >50
-    //   visualizationCtx.fillRect(i * 40, 250, 39, value * -5);
+  componentWillUnmount() {
+    if (this.chromagramWorker) {
+      this.chromagramWorker.terminate()
+    }
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId)
+      this.rafId = null
+    }
+  }
 
-    //   visualizationCtx.fillStyle = 'black';
-    //   visualizationCtx.fillText(notes[i], (i * 40)+3, 250);
+  renderMeter() {
+    this.rafId = requestAnimationFrame(() => this.renderMeter())
+
+
+    for(let noteIndex = 0; noteIndex < this.notes.length; noteIndex++) {
+      let height = this.currentChroma[noteIndex] * 2.5
+      this.refs[this.notes[noteIndex]].style.height = `${100 - height}%`
+    }
   }
 
   render() {
     return (
       <Panel header="Chromagram">
-        <div className="chromagram" ref={(c) => { this.visualizationDiv = c; }}>
+        <div className="chromagram" ref={(c) => this.visualizationDiv = c }>
           { this.notes.map((note) => {
-            return <div key={note} className={ `note-${note.toLowerCase().replace('#', '-sharp')}`}><span>{note}</span></div>
+            return (
+              <div className="outer" key={note}>
+                <div className="inner" ref={note}>
+                  <div className="c-label">{note.endsWith("#") ? "#" : note}</div>
+                </div>
+              </div>
+            )
           })}
         </div>
       </Panel>
@@ -43,7 +70,8 @@ export default class ChromagramMeter extends React.Component {
   }
 }
 
-ChromagramMeter.propTypes = {
-  currentChroma: PropTypes.object
+ChromagramMeter.contextTypes = {
+  audioContainer: React.PropTypes.object,
 }
+
 

@@ -20,12 +20,8 @@ export default class ChordFaker extends React.Component {
       })
 
       let audioEl = this.chords[chordName]
+      this.context.audioContainer.addSourceElement(audioEl)
       audioEl.play()
-
-      if (!this.chordNodes.hasOwnProperty(chordName)) {
-        this.chordNodes[chordName] = this.context.audioContext.createMediaElementSource(audioEl)
-        this.chordNodes[chordName].connect(this.context.audioDestination[0])
-      }
     }
   }
 
@@ -40,7 +36,6 @@ export default class ChordFaker extends React.Component {
 }
 
 ChordFaker.contextTypes = {
-  audioContext: React.PropTypes.object,
-  audioDestination: React.PropTypes.array
+  audioContainer: React.PropTypes.object,
 }
 
