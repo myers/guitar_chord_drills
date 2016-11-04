@@ -4,7 +4,7 @@
   "description": "Build mastery of guitar chord changes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha-webpack --require source-map-support/register --webpack-config webpack.config-test.js \"src/test/*_test.js\" --watch",
     "build": "webpack",
     "start": "webpack-dev-server --https --progress --inline --hot --history-api-fallback"
   },
@@ -44,5 +44,13 @@
     "webpack-dev-server": "^1.16.2",
     "worker-loader": "^0.7.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "mocha-webpack": "^0.7.0",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0",
+    "source-map-support": "^0.4.6",
+    "webpack-node-externals": "^1.5.4"
+  }
 }
