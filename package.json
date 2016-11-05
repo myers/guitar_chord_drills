@@ -4,7 +4,7 @@
   "description": "Build mastery of guitar chord changes",
   "main": "index.js",
   "scripts": {
-    "test": "mocha-webpack --require source-map-support/register --webpack-config webpack.config-test.js \"src/test/*_test.js\" --watch",
+    "test": "mocha-webpack --require source-map-support/register --webpack-config webpack.config-test.js \"src/**/*.test.js\" --watch",
     "build": "webpack",
     "start": "webpack-dev-server --https --progress --inline --hot --history-api-fallback"
   },

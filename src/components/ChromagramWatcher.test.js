@@ -6,10 +6,11 @@ chai.use(sinonChai)
 
 import ChromagramWatcher from "../components/ChromagramWatcher.jsx"
 
-let store
 
 describe("ChromagramWatcher", () => {
   describe("#actOnChord", () => {
+    let store
+
     beforeEach(() => {
       store = {}
       store.dispatch = spy()

@@ -1,9 +1,11 @@
-import React, { PropTypes, Children } from 'react'
-
+import React, { Children } from 'react'
+import _ from 'lodash'
+import sampleRate from '../ChromagramConstants.js'
 import ChromagramWorker from 'worker!../ChromagramWorker'
 
 import { chordPlaying, chordStopped } from '../actions/chord-actions'
 
+const CHORD_TIME_THRESHOLD = 0.1
 
 // Watch the Chords play, and dispatch actions when we see a chord played
 export default class ChromagramWatcher extends React.Component {
@@ -19,21 +21,23 @@ export default class ChromagramWatcher extends React.Component {
   }
 
   actOnChord(eventData) {
-    if (eventData.hasOwnProperty("chord")) {
-      if (JSON.stringify(this.currentChord) !== JSON.stringify(eventData.chord)) {
+    if (!_.isEqual(this.currentChord, eventData.chord)) {
+      if (this.dispatchedAction) {
+        this.context.store.dispatch(chordStopped(this.currentChord))
+        this.dispatchedAction = false
+      }
+      if (eventData.chord === undefined) {
+        this.currentChord = null
+        this.chordPlayingSince = null
+      } else {
         this.currentChord = eventData.chord
         this.chordPlayingSince = eventData.playbackTime
-        this.dispatchedAction = false
-      } else {
-        if (this.chordPlayingSince + 0.1 <= eventData.playbackTime) {
-          this.context.store.dispatch(chordPlaying(this.currentChord))
-          this.dispatchedAction = true
-        }
       }
     } else {
-      this.currentChord = null
-      this.chordPlayingSince = null
-      this.dispatchedAction = false
+      if (this.chordPlayingSince + CHORD_TIME_THRESHOLD <= eventData.playbackTime && !this.dispatchedAction) {
+        this.context.store.dispatch(chordPlaying(this.currentChord))
+        this.dispatchedAction = true
+      }
     }
   }
 
@@ -43,7 +47,7 @@ export default class ChromagramWatcher extends React.Component {
       this.currentChroma.set(event.data.currentChroma)
       this.actOnChord(event.data)
     })
-    this.context.audioContainer.addMonitor(1024, (event) => {
+    this.context.audioContainer.addMonitor(sampleRate, (event) => {
       this.chromagramWorker.postMessage({
         playbackTime: event.playbackTime,
         audioData: event.inputBuffer.getChannelData(0),
@@ -74,6 +78,7 @@ ChromagramWatcher.childContextTypes = {
 
 ChromagramWatcher.contextTypes = {
   audioContainer: React.PropTypes.object,
+  store: React.PropTypes.object,
 }
 
 

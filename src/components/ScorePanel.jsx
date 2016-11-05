@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 import { Panel } from 'react-bootstrap'
 
-export default class Scoreboard extends React.Component {
+export default class ScorePanel extends React.Component {
   constructor(props) {
     super(props)
   }
@@ -16,6 +16,7 @@ export default class Scoreboard extends React.Component {
   }
 }
 
-Scoreboard.propTypes = {
+ScorePanel.propTypes = {
+  score: PropTypes.number,
 }
 

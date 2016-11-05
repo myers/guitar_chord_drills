@@ -1,18 +1,20 @@
 import {Chromagram, ChordDetector} from 'chord_detector'
+import sampleRate from './ChromagramConstants.js'
 
-const chromagram = new Chromagram(1024, 44100)
+const chromagram = new Chromagram(sampleRate, 44100)
 const chordDetector = new ChordDetector()
 
 // only sound above this volume will be analyised for chords
-const VOLUME_THRESHOLD = 0.1
+const VOLUME_THRESHOLD = -10
 
 function volumeLevel(audioData) {
   const len = audioData.length
   let total = 0
   let i = 0
-  let rms = 0
   while (i < len) total += Math.abs(audioData[i++])
-  return Math.sqrt(total / len)
+  let rms = Math.sqrt(total / (len / 2))
+  let decibel = 20 * (Math.log(rms) / Math.log(10))
+  return decibel
 }
 
 onmessage = function(event) {
