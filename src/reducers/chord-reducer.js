@@ -11,7 +11,6 @@ const initialState = {
 const chordReducer = (state = initialState, action) => {
   let newState = {}
   Object.assign(newState, state)
-  console.log('reducing', action)
   switch (action.type) {
     case TIMER_START:
       newState.endDate = action.payload.endDate
@@ -29,7 +28,6 @@ const chordReducer = (state = initialState, action) => {
     default:
       break
   }
-  console.log(newState)
   return newState
 }
 

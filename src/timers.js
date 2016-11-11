@@ -24,13 +24,11 @@ export function timerMiddleware({dispatch, getState}) {
   const timers = {}
 
   return next => action => {
-    console.log(action)
     if(action.type === TIMER_START) {
       const {name, endDate} = action.payload
 
       clearTimeout(timers[name])
 
-      console.log(endDate, Date.now())
       timers[name] = setTimeout(() => {
         dispatch(timerEnded(name))
       }, endDate - Date.now())
