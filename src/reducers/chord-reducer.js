@@ -1,15 +1,21 @@
 import { CHORD_PLAYING } from '../actions/chord-actions'
+import { TIMER_START, TIMER_CANCEL, TIMER_ENDED } from '../timers'
 
 const initialState = {
   chordList: ["A", "E"],
   listeningForChord: {rootNote: "E"},
-  score: 0
+  score: 0,
+  endDate: null
 }
 
 const chordReducer = (state = initialState, action) => {
   let newState = {}
   Object.assign(newState, state)
+  console.log('reducing', action)
   switch (action.type) {
+    case TIMER_START:
+      newState.endDate = action.payload.endDate
+      break
     case CHORD_PLAYING:
       if (action.payload.chord.rootNote == state.listeningForChord.rootNote) {
         newState.score += 1
@@ -23,6 +29,7 @@ const chordReducer = (state = initialState, action) => {
     default:
       break
   }
+  console.log(newState)
   return newState
 }
 

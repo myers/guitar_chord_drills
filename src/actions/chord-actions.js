@@ -11,3 +11,10 @@ export const chordStopped = (chord) => ({
   type: CHORD_STOPPED,
   payload: {chord: chord}
 })
+
+
+export const DRILL_START = 'DRILL_START'
+
+export const drillStart = () => ({
+  type: DRILL_START,
+})

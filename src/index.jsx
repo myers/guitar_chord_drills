@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 
 import ChordPaneContainer from './containers/ChordPaneContainer.jsx'
@@ -14,15 +14,23 @@ import AudioContainer from './components/AudioContainer.jsx'
 import ChordFaker from './components/ChordFaker.jsx'
 import chordReducer from './reducers/chord-reducer'
 
+import { timerMiddleware } from './timers.js'
+
 require('./css/style.css')
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Grid, Row, Col } from 'react-bootstrap';
+
+const middleware = [timerMiddleware]
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
   combineReducers({
     chordDrill: chordReducer,
   }),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeEnhancers(
+    applyMiddleware(...middleware)
+  )
 )
 
 render(

@@ -56,5 +56,3 @@ export default class ChromagramMeter extends React.Component {
 ChromagramMeter.contextTypes = {
   currentChroma: React.PropTypes.object,
 }
-
-

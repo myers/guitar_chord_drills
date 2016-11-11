@@ -20,8 +20,6 @@ describe("chordReducer", () => {
     )
   })
 
-
-
   it("should switch cords when the correct one is played", () => {
     let state = {
       chordList: ["A", "E"],
