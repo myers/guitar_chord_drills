@@ -5,7 +5,8 @@ const initialState = {
   chordList: ["A", "E"],
   listeningForChord: {rootNote: "E"},
   score: 0,
-  endDate: null
+  endDate: null,
+  playing: false,
 }
 
 const chordReducer = (state = initialState, action) => {
@@ -14,9 +15,13 @@ const chordReducer = (state = initialState, action) => {
   switch (action.type) {
     case TIMER_START:
       newState.endDate = action.payload.endDate
+      newState.playing = true
+      break
+    case TIMER_ENDED:
+      newState.playing = false
       break
     case CHORD_PLAYING:
-      if (action.payload.chord.rootNote == state.listeningForChord.rootNote) {
+      if (state.playing && action.payload.chord.rootNote == state.listeningForChord.rootNote) {
         newState.score += 1
         let canidateChords = state.chordList.reduce((acc, v) => {
           if (v != state.listeningForChord.rootNote) acc.push(v)
