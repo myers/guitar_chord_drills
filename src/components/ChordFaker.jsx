@@ -5,11 +5,11 @@ import { Panel, Button } from 'react-bootstrap'
 export default class ChordFaker extends React.Component {
   componentDidMount() {
     this.chords = {
-      a: new Audio("docs/A-Chord.ogg"),
-      e: new Audio("docs/E-Chord.ogg"),
-      d: new Audio("docs/D-Chord.ogg"),
-      f: new Audio("docs/F-Chord.ogg"),
-      "d-slash-a": new Audio("docs/D-slash-A-Chord.ogg"),
+      a: new Audio("/docs/A-Chord.ogg"),
+      e: new Audio("/docs/E-Chord.ogg"),
+      d: new Audio("/docs/D-Chord.ogg"),
+      f: new Audio("/docs/F-Chord.ogg"),
+      "d-slash-a": new Audio("/docs/D-slash-A-Chord.ogg"),
     }
 
     this.chordNodes = {}

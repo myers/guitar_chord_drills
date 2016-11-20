@@ -1,7 +1,7 @@
 import React, { Children } from 'react'
 import _ from 'lodash'
 import sampleRate from '../ChromagramConstants.js'
-import ChromagramWorker from 'worker!../ChromagramWorker'
+import ChromagramWorker from 'worker-loader?inline!../ChromagramWorker'
 
 import { chordPlaying, chordStopped } from '../actions/chord-actions'
 
