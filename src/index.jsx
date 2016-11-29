@@ -5,6 +5,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 import chordReducer from './reducers/chord-reducer'
 
@@ -24,17 +25,20 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(
   combineReducers({
     chordDrill: chordReducer,
+    routing: routerReducer,
   }),
   composeEnhancers(
     applyMiddleware(...middleware)
   )
 )
 
+const history = syncHistoryWithStore(browserHistory, store)
+
 render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={Splash} />      
+        <IndexRoute component={Splash} />
         <Route path="login" component={Login} />
         <Route path="chord-drill/(:filter)" component={ChordDrill} />
       </Route>
