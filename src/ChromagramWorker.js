@@ -1,7 +1,7 @@
 import {Chromagram, ChordDetector} from 'chord_detector'
-import sampleRate from './ChromagramConstants.js'
+import bufferSize from './ChromagramConstants.js'
 
-const chromagram = new Chromagram(sampleRate, 44100)
+const chromagram = new Chromagram(bufferSize, 44100)
 const chordDetector = new ChordDetector()
 
 // only sound above this volume will be analyised for chords

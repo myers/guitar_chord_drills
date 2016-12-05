@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import createSagaMiddleware from 'redux-saga'
 
 import chordReducer from './reducers/chord-reducer'
 
@@ -13,12 +14,16 @@ import { timerMiddleware } from './timers.js'
 
 require('./css/style.css')
 
+import 'babel-polyfill'
+
 import App from './containers/App.jsx'
 import ChordDrill from './containers/ChordDrill.jsx'
 import Splash from './components/Splash.jsx'
 import Login from './containers/Login.jsx'
 
-const middleware = [timerMiddleware]
+const sagaMiddleware = createSagaMiddleware()
+
+const middleware = [timerMiddleware, sagaMiddleware]
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -31,6 +36,10 @@ const store = createStore(
     applyMiddleware(...middleware)
   )
 )
+
+import { audioContextSaga } from "./user_audio/saga.js"
+
+sagaMiddleware.run(audioContextSaga)
 
 const history = syncHistoryWithStore(browserHistory, store)
 

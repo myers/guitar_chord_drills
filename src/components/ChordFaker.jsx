@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react'
 import ReactDOM from 'react-dom'
 import { Panel, Button } from 'react-bootstrap'
 
+import { soundPlay } from "../user_audio/actions"
+
 export default class ChordFaker extends React.Component {
   componentDidMount() {
     this.chords = {
@@ -23,8 +25,7 @@ export default class ChordFaker extends React.Component {
       })
 
       let audioEl = this.chords[chordName]
-      this.context.audioContainer.addSourceElement(audioEl)
-      audioEl.play()
+      this.context.store.dispatch(soundPlay(audioEl))
     }
   }
 
@@ -43,6 +44,6 @@ export default class ChordFaker extends React.Component {
 }
 
 ChordFaker.contextTypes = {
-  audioContainer: React.PropTypes.object,
+  store: React.PropTypes.object,
 }
 

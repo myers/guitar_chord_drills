@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Grid, Row, Col } from 'react-bootstrap'
 
-import AudioContainer from '../components/AudioContainer.jsx'
 import ChromagramWatcher from '../components/ChromagramWatcher.jsx'
 
 export default (props) => (
@@ -26,12 +25,10 @@ export default (props) => (
       </Nav>
     </Navbar>
 
-    <AudioContainer>
-      <ChromagramWatcher>
-        <Grid>
-          {props.children}
-        </Grid>
-      </ChromagramWatcher>
-    </AudioContainer>
+    <ChromagramWatcher>
+      <Grid>
+        {props.children}
+      </Grid>
+    </ChromagramWatcher>
   </div>
 )

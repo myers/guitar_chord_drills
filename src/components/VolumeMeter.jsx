@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 import { Panel } from 'react-bootstrap'
-
+import { monitorAdd } from '../user_audio/actions.js'
 
 import VolumeMeterNode from './VolumeMeterNode.jsx'
 
@@ -14,7 +14,9 @@ export default class VolumeMeter extends React.Component {
 
   componentDidMount() {
     this.volumeMeterNode = new VolumeMeterNode()
-    this.context.audioContainer.addMonitor(512, (event) => this.volumeMeterNode.onAudioProcess(event))
+    this.context.store.dispatch(
+      monitorAdd(512, (event) => this.volumeMeterNode.onAudioProcess(event))
+    )
 
     this.renderMeter()
   }
@@ -47,5 +49,5 @@ export default class VolumeMeter extends React.Component {
 }
 
 VolumeMeter.contextTypes = {
-  audioContainer: React.PropTypes.object,
+  store: React.PropTypes.object,
 }
