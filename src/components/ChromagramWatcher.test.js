@@ -4,7 +4,7 @@ import { spy } from "sinon"
 import sinonChai from "sinon-chai"
 chai.use(sinonChai)
 
-import ChromagramWatcher from "../components/ChromagramWatcher.jsx"
+import ChromagramWatcher from "../components/ChromagramWatcher"
 
 
 describe("ChromagramWatcher", () => {

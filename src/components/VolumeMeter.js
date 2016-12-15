@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 import { Panel } from 'react-bootstrap'
 import { monitorAdd } from '../user_audio/actions.js'
 
-import VolumeMeterNode from './VolumeMeterNode.jsx'
+import VolumeMeterNode from './VolumeMeterNode'
 
 // code from https://github.com/cwilso/volume-meter/blob/master/volume-meter.js
 export default class VolumeMeter extends React.Component {

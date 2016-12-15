@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Grid, Row, Col } from 'react-bootstrap'
 
-import ChromagramWatcher from '../components/ChromagramWatcher.jsx'
+import ChromagramWatcher from '../components/ChromagramWatcher'
 
 export default (props) => (
   <div>

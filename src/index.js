@@ -16,10 +16,10 @@ require('./css/style.css')
 
 import 'babel-polyfill'
 
-import App from './containers/App.jsx'
-import ChordDrill from './containers/ChordDrill.jsx'
-import Splash from './components/Splash.jsx'
-import Login from './containers/Login.jsx'
+import App from './containers/App'
+import ChordDrill from './containers/ChordDrill'
+import Splash from './components/Splash'
+import Login from './containers/Login'
 
 const sagaMiddleware = createSagaMiddleware()
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ScorePanel from '../components/ScorePanel.jsx'
+import ScorePanel from '../components/ScorePanel'
 
 const mapStateToProps = state => ({
   score: state.chordDrill.score
