@@ -22,7 +22,7 @@ export default class VolumeMeter extends React.Component {
   componentWillUnmount () {
     this.context.userAudio.removeMonitor(this.monitor)
 
-    if(this.rafId) {
+    if (this.rafId) {
       cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
@@ -37,10 +37,10 @@ export default class VolumeMeter extends React.Component {
 
   render () {
     return (
-      <Panel header="Volume">
-        <div className="volume-meter">
-          <div className="outer">
-            <div className="inner" ref={(c) => { this.visualizationDiv = c }}/>
+      <Panel header='Volume'>
+        <div className='volume-meter'>
+          <div className='outer'>
+            <div className='inner' ref={(c) => { this.visualizationDiv = c }} />
           </div>
         </div>
       </Panel>

@@ -2,7 +2,7 @@
 // other path to the speakers.  This will avoid pop and glitches in the
 // audio that we would hear if we put this in the audio path.
 export default class VolumeMeterNode {
-  constructor(audioContext, clipLevel = 0.98, averaging = 0.95, clipLag = 750) {
+  constructor (audioContext, clipLevel = 0.98, averaging = 0.95, clipLag = 750) {
     this.audioContext = audioContext
     this.clipLevel = clipLevel
     this.averaging = averaging
@@ -13,16 +13,18 @@ export default class VolumeMeterNode {
     this.volume = 0
   }
 
-  checkClipping() {
-    console.log("checkClipping")
-    if (!this.clipping)
+  checkClipping () {
+    console.log('checkClipping')
+    if (!this.clipping) {
       return false
-    if ((this.lastClip + this.clipLag) < window.performance.now())
+    }
+    if ((this.lastClip + this.clipLag) < window.performance.now()) {
       this.clipping = false
+    }
     return this.clipping
   }
 
-  onAudioProcess(event) {
+  onAudioProcess (event) {
     let inputBuffer = event.inputBuffer
 
     var buf = inputBuffer.getChannelData(0)
@@ -41,7 +43,7 @@ export default class VolumeMeterNode {
     }
 
     // ... then take the square root of the sum.
-    let rms =  Math.sqrt(sum / bufLength)
+    let rms = Math.sqrt(sum / bufLength)
 
     // Now smooth this out with the averaging factor applied
     // to the previous sample - take the max here because we

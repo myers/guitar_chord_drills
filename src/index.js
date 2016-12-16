@@ -55,11 +55,11 @@ render(
   <Provider store={store}>
     <UserAudioProvider userAudio={userAudio}>
       <Router history={history}>
-        <Route path="/" component={App}>
+        <Route path='/' component={App}>
           <IndexRoute component={Splash} />
-          <Route path="mic-setup" component={MicSetup} />
-          <Route path="login" component={Login} />
-          <Route path="chord-drill/(:filter)" component={ChordDrill} />
+          <Route path='mic-setup' component={MicSetup} />
+          <Route path='login' component={Login} />
+          <Route path='chord-drill/(:filter)' component={ChordDrill} />
         </Route>
       </Router>
     </UserAudioProvider>

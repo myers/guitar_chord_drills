@@ -6,16 +6,16 @@ export const userAudioShape = PropTypes.shape({
 })
 
 export default class UserAudioProvider extends Component {
-  getChildContext() {
+  getChildContext () {
     return { userAudio: this.userAudio }
   }
 
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context)
     this.userAudio = props.userAudio
   }
 
-  render() {
+  render () {
     return Children.only(this.props.children)
   }
 }

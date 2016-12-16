@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import ScorePanel from '../components/ScorePanel'
 
 const mapStateToProps = state => ({

@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { micRequest } from '../user_audio/actions'
 import { Grid, Row, Button, Radio } from 'react-bootstrap'
 import ChromagramMeter from '../components/ChromagramMeter'
@@ -10,7 +10,7 @@ const _MicSetup = (props) => {
     return (
       <Grid>
         <Row>
-          <Button onClick={props.onListen} bsStyle="primary" bsSize="large">Listen!</Button>
+          <Button onClick={props.onListen} bsStyle='primary' bsSize='large'>Listen!</Button>
         </Row>
       </Grid>
     )
@@ -20,7 +20,7 @@ const _MicSetup = (props) => {
     console.log(mic.label, props.micLabel)
     return (
       <Radio
-        name={"selectedMic"}
+        name={'selectedMic'}
         onClick={() => { props.onMicSelected(mic.deviceId) }}
         key={mic.deviceId}
         defaultChecked={mic.label === props.micLabel}>
@@ -33,14 +33,13 @@ const _MicSetup = (props) => {
     <Grid>
       <Row>
         <span>Avaliable Mics</span>
-          {mics}
+        {mics}
         <ChromagramMeter />
         <VolumeMeter />
 
       </Row>
     </Grid>
   )
-
 }
 
 const mapStateToProps = state => ({
@@ -50,7 +49,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   onListen: () => { dispatch(micRequest()) },
-  onMicSelected: (deviceId) => { dispatch(micRequest(deviceId)) },
+  onMicSelected: (deviceId) => { dispatch(micRequest(deviceId)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(_MicSetup)

@@ -8,7 +8,7 @@ const CHORD_TIME_THRESHOLD = 0.1
 
 // Watch the Chords play, and dispatch actions when we see a chord played
 export default class ChromagramWatcher extends React.Component {
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context)
 
     this.currentChroma = new Float32Array(12)
@@ -21,12 +21,12 @@ export default class ChromagramWatcher extends React.Component {
     this.monitor = (event) => {
       this.chromagramWorker.postMessage({
         playbackTime: event.playbackTime,
-        audioData: event.inputBuffer.getChannelData(0),
+        audioData: event.inputBuffer.getChannelData(0)
       })
     }
   }
 
-  actOnChord(eventData) {
+  actOnChord (eventData) {
     if (!_.isEqual(this.currentChord, eventData.chord)) {
       if (this.dispatchedAction) {
         this.context.store.dispatch(chordStopped(this.currentChord))
@@ -41,16 +41,16 @@ export default class ChromagramWatcher extends React.Component {
       }
     } else {
       if (this.chordPlayingSince + CHORD_TIME_THRESHOLD <= eventData.playbackTime && !this.dispatchedAction) {
-        console.log("dispatch", this.currentChord)
+        console.log('dispatch', this.currentChord)
         this.context.store.dispatch(chordPlaying(this.currentChord))
         this.dispatchedAction = true
       }
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.chromagramWorker = new ChromagramWorker()
-    this.chromagramWorker.addEventListener("message", (event) => {
+    this.chromagramWorker.addEventListener('message', (event) => {
       this.currentChroma.set(event.data.currentChroma)
       this.actOnChord(event.data)
     })
@@ -58,13 +58,13 @@ export default class ChromagramWatcher extends React.Component {
     this.context.userAudio.addMonitor(bufferSize, this.monitor)
   }
 
-  getChildContext() {
+  getChildContext () {
     return {
       currentChroma: this.currentChroma
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this.context.userAudio.removeMonitor(bufferSize, this.monitor)
 
     if (this.chromagramWorker) {
@@ -72,7 +72,7 @@ export default class ChromagramWatcher extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return Children.only(this.props.children)
   }
 }
@@ -83,5 +83,5 @@ ChromagramWatcher.childContextTypes = {
 
 ChromagramWatcher.contextTypes = {
   store: React.PropTypes.object,
-  userAudio: React.PropTypes.object,
+  userAudio: React.PropTypes.object
 }

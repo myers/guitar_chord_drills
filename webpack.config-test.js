@@ -1,9 +1,8 @@
-const nodeExternals = require('webpack-node-externals');
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   target: 'node', // in order to ignore built-in modules like path, fs, etc.
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
-
 
   output: {
     // sourcemap support for IntelliJ/Webstorm
@@ -11,13 +10,13 @@ module.exports = {
     devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
   },
 
-  devtool: "cheap-module-source-map", // faster than 'source-map'
+  devtool: 'cheap-module-source-map', // faster than 'source-map'
 
   module: {
     loaders: [
       {
         test: /\.js$/,
-        loader: "babel-loader"
+        loader: 'babel-loader'
       }
     ]
   }

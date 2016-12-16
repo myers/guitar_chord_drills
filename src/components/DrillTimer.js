@@ -4,31 +4,31 @@ import { Panel } from 'react-bootstrap'
 import { timerStart } from '../timers'
 
 export default class DrillTimer extends React.Component {
-  constructor(props, context) {
+  constructor (props, context) {
     super(props, context)
     this.rafId = null
     this.outputSpan = null
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate (nextProps, nextState) {
     return false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // TODO move this somewhere else
     this.context.store.dispatch(timerStart('drill', 5))
 
     this.renderTimer()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     if (this.rafId) {
       cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
   }
 
-  renderTimer() {
+  renderTimer () {
     this.rafId = requestAnimationFrame(() => this.renderTimer())
 
     const { endDate } = this.context.store.getState().chordDrill
@@ -40,16 +40,16 @@ export default class DrillTimer extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return (
-      <Panel className="timer" header="Time Left">
-        <span ref={(c) => this.outputSpan = c } />
+      <Panel className='timer' header='Time Left'>
+        <span ref={(c) => this.outputSpan = c} />
       </Panel>
     )
   }
 }
 
 DrillTimer.contextTypes = {
-  store: React.PropTypes.object,
+  store: React.PropTypes.object
 }
 

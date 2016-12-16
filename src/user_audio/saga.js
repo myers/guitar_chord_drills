@@ -5,7 +5,7 @@ import UserAudio from './user_audio'
 
 // Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
 function userAudioSaga (userAudio) {
-  function * realSaga() {
+  function * realSaga () {
     yield call(() => userAudio.setup())
     yield takeEvery(SOUND_PLAY, (action) => userAudio.playSound(action))
     yield takeEvery(MIC_REQUEST, (action) => {

@@ -7,7 +7,7 @@ const chordDetector = new ChordDetector()
 // only sound above this volume will be analyised for chords
 const VOLUME_THRESHOLD = -10
 
-function volumeLevel(audioData) {
+function volumeLevel (audioData) {
   const len = audioData.length
   let total = 0
   let i = 0
@@ -17,9 +17,9 @@ function volumeLevel(audioData) {
   return decibel
 }
 
-onmessage = function(event) {
+onmessage = function (event) {
   if (!event.data.hasOwnProperty('audioData')) {
-    console.error("expected audioData, got", event.data)
+    console.error('expected audioData, got', event.data)
   }
   chromagram.processAudioFrame(event.data.audioData)
 
@@ -29,7 +29,7 @@ onmessage = function(event) {
 
   let message = {
     currentChroma: currentChroma,
-    playbackTime: event.data.playbackTime,
+    playbackTime: event.data.playbackTime
   }
 
   if (volumeLevel(event.data.audioData) > VOLUME_THRESHOLD) {
@@ -38,8 +38,8 @@ onmessage = function(event) {
       chord: {
         rootNote: chordDetector.rootNote(),
         quality: chordDetector.quality(),
-        intervals: chordDetector.intervals(),
-      },
+        intervals: chordDetector.intervals()
+      }
     })
   }
 

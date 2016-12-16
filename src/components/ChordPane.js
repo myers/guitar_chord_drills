@@ -3,21 +3,21 @@ import { Panel } from 'react-bootstrap'
 
 // Following this pattern https://facebook.github.io/react/tips/use-react-with-other-libraries.html
 export default class ChordPane extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate (nextProps, nextState) {
     this.renderChord(nextProps.chord)
     return false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.renderChord(this.props.chord)
   }
 
-  renderChord(chord) {
-    jtab.render($('#chord-pane'), chord);
+  renderChord (chord) {
+    jtab.render($('#chord-pane'), chord)
     // add missing viewbox that will allow us to scale this up
     var svg = $('#chord-pane svg').get(0)
     svg.setAttribute('viewBox', '0 0 138 118')
@@ -25,12 +25,12 @@ export default class ChordPane extends React.Component {
     svg.removeAttribute('style')
     svg.removeAttribute('height')
     $('#chord-pane div').css('padding-right', '50px')
-    //$('#chord-pane div').css('height', '100%')
+    // $('#chord-pane div').css('height', '100%')
   }
 
-  render() {
+  render () {
     return (
-        <div id="chord-pane" className="chord-container"></div>
+      <div id='chord-pane' className='chord-container' />
     )
   }
 }

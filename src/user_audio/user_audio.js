@@ -7,8 +7,8 @@ export default class UserAudio {
   // if we do just start listening on previous mic (get from localStorage)
   // if not wait for requestMic to be called
   // when mic is gotten record it's label in localStorage
-  constructor (localStorage=window.localStorage) {
-    //console.log('new UserAudio')
+  constructor (localStorage = window.localStorage) {
+    // console.log('new UserAudio')
     this.monitorNodes = []
     this.sourceElements = {}
     this.audioContext = new window.AudioContext()
@@ -16,7 +16,6 @@ export default class UserAudio {
     this.setupRun = false
     this.localStorage = localStorage
   }
-
 
   addMonitor (bufferSize, func) {
     const node = this.audioContext.createScriptProcessor(bufferSize)
@@ -29,7 +28,7 @@ export default class UserAudio {
   removeMonitor (func) {
     const idx = this.monitorNodes.findIndex((el) => (el.onaudioprocess === func))
     this.monitorNodes[idx].disconnect()
-    this.monitorNodes.splice(idx, 1);
+    this.monitorNodes.splice(idx, 1)
   }
 
   *setup () {
@@ -39,7 +38,7 @@ export default class UserAudio {
     this.setupRun = true
     let devices = yield navigator.mediaDevices.enumerateDevices()
 
-    const recentMicrophoneLabel = this.localStorage.getItem("recentMicrophoneLabel")
+    const recentMicrophoneLabel = this.localStorage.getItem('recentMicrophoneLabel')
     const device = devices.find((device) => device.label === recentMicrophoneLabel)
     if (device) {
       yield this.activateMic(device.deviceId)

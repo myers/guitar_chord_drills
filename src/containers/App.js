@@ -9,11 +9,11 @@ export default (props) => (
     <Navbar>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#">🎸 Chord Drills</a>
+          <a href='#'>🎸 Chord Drills</a>
         </Navbar.Brand>
       </Navbar.Header>
       <Nav>
-        <LinkContainer onlyActiveOnIndex={true} to={{ pathname: '/' }}>
+        <LinkContainer onlyActiveOnIndex to={{ pathname: '/' }}>
           <NavItem eventKey={1}>Splash</NavItem>
         </LinkContainer>
         <LinkContainer to={{ pathname: '/mic-setup' }}>

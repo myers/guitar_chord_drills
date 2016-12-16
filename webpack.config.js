@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'eval-source-map',
 
   node: {
-    fs: "empty"
+    fs: 'empty'
   },
 
   module: {
@@ -24,4 +24,4 @@ module.exports = {
       }
     ]
   }
-};
+}
