@@ -2,11 +2,21 @@ import { CHORD_PLAYING } from '../actions/chord-actions'
 import { TIMER_START, TIMER_CANCEL, TIMER_ENDED } from '../timers'
 
 const initialState = {
-  chordList: ["A", "E"],
-  listeningForChord: {rootNote: "E"},
+  chordSets: [
+    ['D', 'A'],
+    ['D', 'E'],
+    ['A', 'E'],
+    ['Am', 'E'],
+    ['Am', 'Dm'],
+    ['A', 'Dm'],
+    ['E', 'D'],
+    ['Em', 'D']
+  ],
+  currentChordSetIndex: 0,
+  listeningForChord: {rootNote: 'E'},
   score: 0,
   endDate: null,
-  playing: false,
+  playing: false
 }
 
 const chordReducer = (state = initialState, action) => {
