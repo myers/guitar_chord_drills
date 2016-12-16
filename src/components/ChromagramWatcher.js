@@ -35,6 +35,7 @@ export default class ChromagramWatcher extends React.Component {
       }
     } else {
       if (this.chordPlayingSince + CHORD_TIME_THRESHOLD <= eventData.playbackTime && !this.dispatchedAction) {
+        console.log("dispatch", this.currentChord)
         this.context.store.dispatch(chordPlaying(this.currentChord))
         this.dispatchedAction = true
       }
@@ -79,5 +80,3 @@ ChromagramWatcher.childContextTypes = {
 ChromagramWatcher.contextTypes = {
   store: React.PropTypes.object,
 }
-
-

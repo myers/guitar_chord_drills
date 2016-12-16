@@ -1,10 +1,10 @@
-import { MONITOR_ADD, SOUND_PLAY, MIC_REQUEST } from './actions'
-
-import { takeEvery, delay } from 'redux-saga'
+import { MONITOR_ADD, SOUND_PLAY, MIC_REQUEST, micEnumerationResult, micStarted } from './actions'
+import { takeEvery } from 'redux-saga'
 import { put } from 'redux-saga/effects'
 
 class AudioWrapper {
-  constructor() {
+  constructor () {
+    console.log('new AudioWrapper')
     this.monitorNodes = []
     this.sourceElements = {}
     this.audioContext = new AudioContext()
@@ -12,7 +12,7 @@ class AudioWrapper {
     this.currentSource = null
   }
 
-  *addMonitor(action) {
+  *addMonitor (action) {
     const {bufferSize, func} = action.payload
     const node = this.audioContext.createScriptProcessor(bufferSize)
     node.onaudioprocess = func
@@ -21,7 +21,7 @@ class AudioWrapper {
     this.monitorNodes.push(node)
   }
 
-  *playSound(action) {
+  *playSound (action) {
     let {mediaEl} = action.payload
     let src = mediaEl.getAttribute('src')
     if (!this.sourceElements.hasOwnProperty(src)) {
@@ -31,12 +31,34 @@ class AudioWrapper {
     mediaEl.play()
   }
 
-  *requestMic() {
-    const mediaStream = yield call(navigator.mediaDevices.getUserMedia, {audio: true})
+  *requestMic (action) {
+    let { deviceId } = action.payload
+    console.log('mic requested', deviceId)
+    try {
+      // cannot use the call() helper here.  I think this must be called as direct result of a users click
+      let constraints = {audio: true}
+      if (deviceId) {
+        constraints.audio = { deviceId }
+      }
+      const mediaStream = yield navigator.mediaDevices.getUserMedia(constraints)
 
+      const mediaStreamSourceNode = this.audioContext.createMediaStreamSource(mediaStream)
+      this.onPlay(mediaStreamSourceNode)
+      console.log('got mediaStream', mediaStream)
+      console.log(mediaStream.getTracks()[0].label)
+
+      yield put(micStarted(mediaStream.getTracks()[0].label))
+      let devices = yield navigator.mediaDevices.enumerateDevices()
+      console.log('got devices', devices)
+      devices = devices.filter((device) => { if (device.kind === 'audioinput') return true })
+      yield put(micEnumerationResult(devices))
+    } catch (e) {
+      // yield put()
+      console.error(e)
+    }
   }
 
-  onPlay(sourceNode) {
+  onPlay (sourceNode) {
     if (this.currentSource) {
       this.currentSource.disconnect()
     }
@@ -48,11 +70,10 @@ class AudioWrapper {
   }
 }
 
-
 // Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
-export function* audioContextSaga() {
+export function* audioContextSaga () {
   const audioWrapper = new AudioWrapper()
   yield takeEvery(MONITOR_ADD, (action) => audioWrapper.addMonitor(action))
   yield takeEvery(SOUND_PLAY, (action) => audioWrapper.playSound(action))
-  yield takeEvery(MIC_REQUEST, audioWrapper.requestMic)
+  yield takeEvery(MIC_REQUEST, (action) => audioWrapper.requestMic(action))
 }

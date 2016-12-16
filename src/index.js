@@ -9,6 +9,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga'
 
 import chordReducer from './reducers/chord-reducer'
+import userAudioReducer from './user_audio/reducers'
 
 import { timerMiddleware } from './timers.js'
 
@@ -20,6 +21,7 @@ import App from './containers/App'
 import ChordDrill from './containers/ChordDrill'
 import Splash from './components/Splash'
 import Login from './containers/Login'
+import MicSetup from './containers/MicSetup'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -31,6 +33,7 @@ const store = createStore(
   combineReducers({
     chordDrill: chordReducer,
     routing: routerReducer,
+    userAudio: userAudioReducer
   }),
   composeEnhancers(
     applyMiddleware(...middleware)
@@ -48,6 +51,7 @@ render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Splash} />
+        <Route path="mic-setup" component={MicSetup} />
         <Route path="login" component={Login} />
         <Route path="chord-drill/(:filter)" component={ChordDrill} />
       </Route>

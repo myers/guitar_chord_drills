@@ -9,7 +9,7 @@ export default function(props) {
         <Jumbotron>
           <h1>🎸 Ready to get better every day on chord changes?</h1>
           <p>
-            <LinkContainer to={{ pathname: '/chord-drill/a-f' }}>
+            <LinkContainer to={{ pathname: '/mic-setup' }}>
               <Button bsStyle="primary">Learn more</Button>
             </LinkContainer>
           </p>
