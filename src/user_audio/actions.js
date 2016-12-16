@@ -1,10 +1,3 @@
-export const MONITOR_ADD = 'MONITOR_ADD'
-
-export const monitorAdd = (bufferSize, func) => ({
-  type: MONITOR_ADD,
-  payload: {func, bufferSize}
-})
-
 export const SOUND_PLAY = 'SOUND_PLAY'
 
 export const soundPlay = (mediaEl) => ({

@@ -1,4 +1,5 @@
-import React from 'react'
+import 'babel-polyfill'
+
 import { render } from 'react-dom'
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
@@ -8,14 +9,18 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga'
 
+import React from 'react'
+
 import chordReducer from './reducers/chord-reducer'
+
 import userAudioReducer from './user_audio/reducers'
+import UserAudioProvider from './user_audio/components'
+import UserAudio from './user_audio/user_audio'
+import userAudioSaga from './user_audio/saga'
 
 import { timerMiddleware } from './timers.js'
 
 require('./css/style.css')
-
-import 'babel-polyfill'
 
 import App from './containers/App'
 import ChordDrill from './containers/ChordDrill'
@@ -40,22 +45,24 @@ const store = createStore(
   )
 )
 
-import { audioContextSaga } from "./user_audio/saga.js"
+const userAudio = new UserAudio()
 
-sagaMiddleware.run(audioContextSaga)
+sagaMiddleware.run(userAudioSaga(userAudio))
 
 const history = syncHistoryWithStore(browserHistory, store)
 
 render(
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Splash} />
-        <Route path="mic-setup" component={MicSetup} />
-        <Route path="login" component={Login} />
-        <Route path="chord-drill/(:filter)" component={ChordDrill} />
-      </Route>
-    </Router>
+    <UserAudioProvider userAudio={userAudio}>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Splash} />
+          <Route path="mic-setup" component={MicSetup} />
+          <Route path="login" component={Login} />
+          <Route path="chord-drill/(:filter)" component={ChordDrill} />
+        </Route>
+      </Router>
+    </UserAudioProvider>
   </Provider>,
   document.getElementById('root')
 )

@@ -4,7 +4,6 @@ import bufferSize from '../ChromagramConstants.js'
 import ChromagramWorker from 'worker-loader?inline!../ChromagramWorker'
 
 import { chordPlaying, chordStopped } from '../actions/chord-actions'
-import { monitorAdd } from '../user_audio/actions.js'
 const CHORD_TIME_THRESHOLD = 0.1
 
 // Watch the Chords play, and dispatch actions when we see a chord played
@@ -18,6 +17,13 @@ export default class ChromagramWatcher extends React.Component {
     this.currentChord = null
     this.chordPlayingSince = null
     this.dispatchedAction = false
+
+    this.monitor = (event) => {
+      this.chromagramWorker.postMessage({
+        playbackTime: event.playbackTime,
+        audioData: event.inputBuffer.getChannelData(0),
+      })
+    }
   }
 
   actOnChord(eventData) {
@@ -48,12 +54,8 @@ export default class ChromagramWatcher extends React.Component {
       this.currentChroma.set(event.data.currentChroma)
       this.actOnChord(event.data)
     })
-    this.context.store.dispatch(monitorAdd(bufferSize, (event) => {
-      this.chromagramWorker.postMessage({
-        playbackTime: event.playbackTime,
-        audioData: event.inputBuffer.getChannelData(0),
-      })
-    }))
+
+    this.context.userAudio.addMonitor(bufferSize, this.monitor)
   }
 
   getChildContext() {
@@ -63,6 +65,8 @@ export default class ChromagramWatcher extends React.Component {
   }
 
   componentWillUnmount() {
+    this.context.userAudio.removeMonitor(bufferSize, this.monitor)
+
     if (this.chromagramWorker) {
       this.chromagramWorker.terminate()
     }
@@ -79,4 +83,5 @@ ChromagramWatcher.childContextTypes = {
 
 ChromagramWatcher.contextTypes = {
   store: React.PropTypes.object,
+  userAudio: React.PropTypes.object,
 }

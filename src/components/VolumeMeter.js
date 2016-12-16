@@ -1,41 +1,41 @@
 import React, { PropTypes } from 'react'
 
 import { Panel } from 'react-bootstrap'
-import { monitorAdd } from '../user_audio/actions.js'
 
 import VolumeMeterNode from './VolumeMeterNode'
 
 // code from https://github.com/cwilso/volume-meter/blob/master/volume-meter.js
 export default class VolumeMeter extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.rafId = null
+    this.monitor = (event) => this.volumeMeterNode.onAudioProcess(event)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.volumeMeterNode = new VolumeMeterNode()
-    this.context.store.dispatch(
-      monitorAdd(512, (event) => this.volumeMeterNode.onAudioProcess(event))
-    )
+    this.context.userAudio.addMonitor(512, this.monitor)
 
     this.renderMeter()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
+    this.context.userAudio.removeMonitor(this.monitor)
+
     if(this.rafId) {
       cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
   }
 
-  renderMeter() {
+  renderMeter () {
     this.rafId = requestAnimationFrame(() => this.renderMeter())
 
     let size = (this.volumeMeterNode.volume * 500 * 1.4) / 5
     this.visualizationDiv.style.height = `${100 - size}%`
   }
 
-  render() {
+  render () {
     return (
       <Panel header="Volume">
         <div className="volume-meter">
@@ -49,5 +49,5 @@ export default class VolumeMeter extends React.Component {
 }
 
 VolumeMeter.contextTypes = {
-  store: React.PropTypes.object,
+  userAudio: PropTypes.object
 }

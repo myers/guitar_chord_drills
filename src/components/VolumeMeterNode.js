@@ -46,6 +46,7 @@ export default class VolumeMeterNode {
     // Now smooth this out with the averaging factor applied
     // to the previous sample - take the max here because we
     // want "fast attack, slow release."
+
     this.volume = Math.max(rms, this.volume * this.averaging)
   }
 }
