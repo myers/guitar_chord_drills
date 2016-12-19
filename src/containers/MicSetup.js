@@ -17,7 +17,6 @@ const _MicSetup = (props) => {
   }
 
   const mics = props.mics.map((mic) => {
-    console.log(mic.label, props.micLabel)
     return (
       <Radio
         name={'selectedMic'}

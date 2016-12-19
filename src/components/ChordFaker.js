@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import ReactDOM from 'react-dom'
 import { Panel, Button } from 'react-bootstrap'
 
 import { soundPlay } from '../user_audio/actions'
@@ -7,14 +6,12 @@ import { soundPlay } from '../user_audio/actions'
 export default class ChordFaker extends React.Component {
   componentDidMount () {
     this.chords = {
-      a: new Audio('/docs/A-Chord.ogg'),
-      e: new Audio('/docs/E-Chord.ogg'),
-      d: new Audio('/docs/D-Chord.ogg'),
-      f: new Audio('/docs/F-Chord.ogg'),
-      'd-slash-a': new Audio('/docs/D-slash-A-Chord.ogg')
+      a: new window.Audio('/docs/A-Chord.ogg'),
+      e: new window.Audio('/docs/E-Chord.ogg'),
+      d: new window.Audio('/docs/D-Chord.ogg'),
+      f: new window.Audio('/docs/F-Chord.ogg'),
+      'd-slash-a': new window.Audio('/docs/D-slash-A-Chord.ogg')
     }
-
-    this.chordNodes = {}
   }
 
   playChord (chordName) {
@@ -44,6 +41,5 @@ export default class ChordFaker extends React.Component {
 }
 
 ChordFaker.contextTypes = {
-  store: React.PropTypes.object
+  store: PropTypes.object
 }
-

@@ -17,3 +17,9 @@ export const DRILL_START = 'DRILL_START'
 export const drillStart = () => ({
   type: DRILL_START
 })
+
+export const DRILL_ENDED = 'DRILL_ENDED'
+
+export const drillEnded = () => ({
+  type: DRILL_ENDED
+})

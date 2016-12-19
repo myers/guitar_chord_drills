@@ -1,12 +1,10 @@
-import React, { PropTypes } from 'react'
-import { Panel } from 'react-bootstrap'
+/* eslint-env jquery */
+/* global jtab */
+
+import React, { PropTypes, Component } from 'react'
 
 // Following this pattern https://facebook.github.io/react/tips/use-react-with-other-libraries.html
-export default class ChordPane extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
+export default class ChordPane extends Component {
   shouldComponentUpdate (nextProps, nextState) {
     this.renderChord(nextProps.chord)
     return false
@@ -36,6 +34,5 @@ export default class ChordPane extends React.Component {
 }
 
 ChordPane.propTypes = {
-  chord: PropTypes.string
+  chord: PropTypes.string.isRequired
 }
-

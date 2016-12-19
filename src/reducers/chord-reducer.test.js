@@ -1,6 +1,5 @@
 import chai, { expect } from 'chai'
-import { describe, it, beforeEach } from 'mocha'
-import { spy } from 'sinon'
+import { describe, it } from 'mocha'
 import sinonChai from 'sinon-chai'
 chai.use(sinonChai)
 
@@ -13,7 +12,7 @@ describe('chordReducer', () => {
       chordReducer(undefined, {})
     ).to.eql(
       {
-        chordList: ['A', 'E'],
+        chordSet: ['A', 'E'],
         listeningForChord: {rootNote: 'E'},
         score: 0
       }
@@ -22,7 +21,7 @@ describe('chordReducer', () => {
 
   it('should switch cords when the correct one is played', () => {
     let state = {
-      chordList: ['A', 'E'],
+      chordSet: ['A', 'E'],
       listeningForChord: {rootNote: 'E'},
       score: 0
     }

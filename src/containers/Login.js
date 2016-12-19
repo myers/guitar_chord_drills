@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Row } from 'react-bootstrap'
 
 export default class ChordDrill extends React.Component {
   render () {

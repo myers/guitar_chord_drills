@@ -32,7 +32,6 @@ export default class UserAudio {
   }
 
   *setup () {
-    console.log('setup started')
     if (this.setupRun) return
 
     this.setupRun = true
@@ -77,7 +76,6 @@ export default class UserAudio {
 
   *updateDeviceList () {
     let devices = yield navigator.mediaDevices.enumerateDevices()
-    console.log('got devices', devices)
     devices = devices.filter((device) => { if (device.kind === 'audioinput') return true })
     yield put(micEnumerationResult(devices))
   }

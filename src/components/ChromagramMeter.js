@@ -20,13 +20,13 @@ export default class ChromagramMeter extends React.Component {
 
   componentWillUnmount () {
     if (this.rafId) {
-      cancelAnimationFrame(this.rafId)
+      window.cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
   }
 
   renderMeter () {
-    this.rafId = requestAnimationFrame(() => this.renderMeter())
+    this.rafId = window.requestAnimationFrame(() => this.renderMeter())
 
     for (let noteIndex = 0; noteIndex < this.notes.length; noteIndex++) {
       let height = this.context.currentChroma[noteIndex] * 2.5
@@ -37,7 +37,7 @@ export default class ChromagramMeter extends React.Component {
   render () {
     return (
       <Panel header='Chromagram'>
-        <div className='chromagram' ref={(c) => this.visualizationDiv = c}>
+        <div className='chromagram' ref={(c) => { this.visualizationDiv = c }}>
           { this.notes.map((note) => {
             return (
               <div className='outer' key={note}>
@@ -54,5 +54,5 @@ export default class ChromagramMeter extends React.Component {
 }
 
 ChromagramMeter.contextTypes = {
-  currentChroma: React.PropTypes.object
+  currentChroma: PropTypes.object
 }

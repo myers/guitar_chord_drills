@@ -23,13 +23,13 @@ export default class VolumeMeter extends React.Component {
     this.context.userAudio.removeMonitor(this.monitor)
 
     if (this.rafId) {
-      cancelAnimationFrame(this.rafId)
+      window.cancelAnimationFrame(this.rafId)
       this.rafId = null
     }
   }
 
   renderMeter () {
-    this.rafId = requestAnimationFrame(() => this.renderMeter())
+    this.rafId = window.requestAnimationFrame(() => this.renderMeter())
 
     let size = (this.volumeMeterNode.volume * 500 * 1.4) / 5
     this.visualizationDiv.style.height = `${100 - size}%`

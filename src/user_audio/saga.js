@@ -1,9 +1,7 @@
-import { SOUND_PLAY, MIC_REQUEST, micEnumerationResult, micStarted } from './actions'
-import { takeEvery, eventChannel, END } from 'redux-saga'
-import { put, call } from 'redux-saga/effects'
-import UserAudio from './user_audio'
+import { SOUND_PLAY, MIC_REQUEST } from './actions'
+import { takeEvery } from 'redux-saga'
+import { call } from 'redux-saga/effects'
 
-// Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
 function userAudioSaga (userAudio) {
   function * realSaga () {
     yield call(() => userAudio.setup())

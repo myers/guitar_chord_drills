@@ -1,4 +1,6 @@
-import {Chromagram, ChordDetector} from 'chord_detector'
+/* eslint-env worker */
+
+import { Chromagram, ChordDetector } from 'chord_detector'
 import bufferSize from './ChromagramConstants.js'
 
 const chromagram = new Chromagram(bufferSize, 44100)
@@ -17,7 +19,7 @@ function volumeLevel (audioData) {
   return decibel
 }
 
-onmessage = function (event) {
+self.onmessage = function (event) {
   if (!event.data.hasOwnProperty('audioData')) {
     console.error('expected audioData, got', event.data)
   }
@@ -43,5 +45,5 @@ onmessage = function (event) {
     })
   }
 
-  postMessage(message)
+  self.postMessage(message) // eslint-disable-line no-use-before-define
 }

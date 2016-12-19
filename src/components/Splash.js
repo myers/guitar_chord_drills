@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Row, Panel, Button, Jumbotron } from 'react-bootstrap'
+import { Grid, Row, Button, Jumbotron } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 export default function (props) {

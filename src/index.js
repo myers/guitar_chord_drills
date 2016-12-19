@@ -23,10 +23,11 @@ import { timerMiddleware } from './timers.js'
 require('./css/style.css')
 
 import App from './containers/App'
-import ChordDrill from './containers/ChordDrill'
 import Splash from './components/Splash'
 import Login from './containers/Login'
 import MicSetup from './containers/MicSetup'
+import ChordDrill from './containers/ChordDrill'
+import TodaysChords from './components/TodaysChords'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -59,7 +60,8 @@ render(
           <IndexRoute component={Splash} />
           <Route path='mic-setup' component={MicSetup} />
           <Route path='login' component={Login} />
-          <Route path='chord-drill/(:filter)' component={ChordDrill} />
+          <Route path='todays-chords' component={TodaysChords} />
+          <Route path='chord-drill' component={ChordDrill} />
         </Route>
       </Router>
     </UserAudioProvider>

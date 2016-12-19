@@ -1,15 +1,12 @@
 export const TIMER_START = 'TIMER_START'
 
-export const timerStart = (name, howLongInSeconds) => ({
+export const timerStart = (name, endAction, howLongInSeconds) => ({
   type: TIMER_START,
-  payload: {name, endDate: Date.now() + howLongInSeconds * 1000}
-})
-
-export const TIMER_ENDED = 'TIMER_ENDED'
-
-export const timerEnded = (name) => ({
-  type: TIMER_ENDED,
-  payload: {name}
+  payload: {
+    name,
+    endDate: Date.now() + howLongInSeconds * 1000,
+    endAction: endAction
+  }
 })
 
 export const TIMER_CANCEL = 'TIMER_CANCEL'
@@ -25,12 +22,12 @@ export function timerMiddleware ({dispatch, getState}) {
 
   return next => action => {
     if (action.type === TIMER_START) {
-      const {name, endDate} = action.payload
+      const {name, endAction, endDate} = action.payload
 
       clearTimeout(timers[name])
 
       timers[name] = setTimeout(() => {
-        dispatch(timerEnded(name))
+        dispatch(endAction)
       }, endDate - Date.now())
       return next(action)
     } else if (action.type === TIMER_CANCEL) {
